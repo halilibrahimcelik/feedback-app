@@ -1,10 +1,14 @@
 import { useEffect, useState } from "react";
 import FeedBackItem from "./components/FeedBackItem";
+import FeedBackList from "./components/FeedBackList";
 import Header from "./components/Header";
+import data from "./data/data";
 
 function App() {
   const [loading, setLoading] = useState(true);
   const [title, setTitle] = useState("FeedBack-App");
+  const [feedBack, setFeedBack] = useState(data);
+
   useEffect(() => {
     setTimeout(() => {
       setLoading(false);
@@ -23,7 +27,7 @@ function App() {
   return (
     <div className="App">
       <Header title={title} />
-      <FeedBackItem />
+      <FeedBackList data={feedBack} />
     </div>
   );
 }
