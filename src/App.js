@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import FeedBackItem from "./components/FeedBackItem";
 import Header from "./components/Header";
 
 function App() {
@@ -22,6 +23,7 @@ function App() {
   return (
     <div className="App">
       <Header title={title} />
+      <FeedBackItem />
     </div>
   );
 }
