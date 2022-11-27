@@ -30,7 +30,7 @@ function App() {
     <div className="App ">
       <Header title={title} />
       <div className="container mx-auto">
-        <FeedBackForm />
+        <FeedBackForm setFeedBack={setFeedBack} />
         <FeedBackStats data={feedBack} />
         <FeedBackList data={feedBack} setData={setFeedBack} />
       </div>

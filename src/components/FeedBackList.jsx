@@ -1,5 +1,6 @@
 import React from "react";
 import FeedBackItem from "./FeedBackItem";
+import { motion, AnimatePresence } from "framer-motion";
 
 const FeedBackList = ({ data, setData }) => {
   const handleDelete = (id) => {
@@ -14,18 +15,27 @@ const FeedBackList = ({ data, setData }) => {
   }
   return (
     <>
-      {data?.map((singleData) => {
-        const { id, rank, text } = singleData;
-        return (
-          <FeedBackItem
-            key={id}
-            rank={rank}
-            text={text}
-            id={id}
-            handleDelete={handleDelete}
-          />
-        );
-      })}
+      <AnimatePresence>
+        {data?.map((singleData) => {
+          const { id, rank, text } = singleData;
+          return (
+            <motion.div
+              key={id}
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0 }}
+            >
+              <FeedBackItem
+                key={id}
+                rank={rank}
+                text={text}
+                id={id}
+                handleDelete={handleDelete}
+              />
+            </motion.div>
+          );
+        })}
+      </AnimatePresence>
     </>
   );
 };
