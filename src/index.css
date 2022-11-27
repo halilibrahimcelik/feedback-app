@@ -43,3 +43,22 @@ height: 50px;
     background: #ff6a95;
     color: #fff;
   }
+
+  .hideMenuNav {
+    display: none;
+  }
+  .showMenuNav {
+
+    position: absolute;
+    width: 50%;
+    height: 100% !important;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    background: white;
+    z-index: 10;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
+    align-items: center;
+  }
