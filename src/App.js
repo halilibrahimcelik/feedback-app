@@ -1,6 +1,8 @@
 import { useEffect, useState } from "react";
-import FeedBackItem from "./components/FeedBackItem";
+
 import FeedBackList from "./components/FeedBackList";
+import FeedBackStats from "./components/FeedBackStats";
+import FeedBackForm from "./components/forms/FeedBackForm";
 import Header from "./components/Header";
 import data from "./data/data";
 
@@ -25,9 +27,13 @@ function App() {
     );
   }
   return (
-    <div className="App">
+    <div className="App ">
       <Header title={title} />
-      <FeedBackList data={feedBack} />
+      <div className="container mx-auto">
+        <FeedBackForm />
+        <FeedBackStats data={feedBack} />
+        <FeedBackList data={feedBack} setData={setFeedBack} />
+      </div>
     </div>
   );
 }

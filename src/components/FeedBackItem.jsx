@@ -1,19 +1,10 @@
-import React, { useState } from "react";
+import React from "react";
+import Card from "./UI/Card";
+import { FaTimes } from "react-icons/fa";
 
-const FeedBackItem = ({ rank, text }) => {
-  // const [rating, setRating] = useState(7);
-  // const [text, setText] = useState(
-  //   "   Lorem ipsum dolor sit amet, consectetur adipisicing elit. Impedit, alias "
-  // );
-
-  // const handleClick = () => {
-  //   setRating((prevState) => {
-  //     console.log(prevState);
-  //     return prevState + 1;
-  //   });
-
+const FeedBackItem = ({ rank, text, handleDelete, id }) => {
   return (
-    <div className="card bg-slate-100 rounded-md mx-20  relative p-7 mt-4">
+    <Card>
       <div
         className="num-display absolute bg-[#ff6e95] text-ellipsis
       text-white
@@ -26,8 +17,11 @@ const FeedBackItem = ({ rank, text }) => {
       >
         {rank}
       </div>
+      <button className="float-right absolute top-3 right-3">
+        <FaTimes color="purple" size={20} onClick={() => handleDelete(id)} />
+      </button>
       <div className="card-text font-mono">{text}</div>
-    </div>
+    </Card>
   );
 };
 
