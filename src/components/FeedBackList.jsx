@@ -1,8 +1,10 @@
-import React from "react";
+import React, { useState } from "react";
 import FeedBackItem from "./FeedBackItem";
-import { motion, AnimatePresence } from "framer-motion";
+import { motion, AnimatePresence, Reorder } from "framer-motion";
 
 const FeedBackList = ({ data, setData }) => {
+  const [items, setItems] = useState([0, 1, 2, 3]);
+
   const handleDelete = (id) => {
     const newData = data.filter((item) => item.id !== id);
     setData(newData);
@@ -13,9 +15,10 @@ const FeedBackList = ({ data, setData }) => {
       <p className="text-white text-2xl pt-10 font-semibold">No Feedback yet</p>
     );
   }
+
   return (
-    <>
-      <AnimatePresence>
+    <AnimatePresence>
+      <Reorder.Group axis="y" values={data} onReorder={setData}>
         {data?.map((singleData) => {
           const { id, rank, text } = singleData;
           return (
@@ -25,18 +28,20 @@ const FeedBackList = ({ data, setData }) => {
               animate={{ opacity: 1 }}
               exit={{ opacity: 0 }}
             >
-              <FeedBackItem
-                key={id}
-                rank={rank}
-                text={text}
-                id={id}
-                handleDelete={handleDelete}
-              />
+              <Reorder.Item value={singleData} id={id}>
+                <FeedBackItem
+                  key={id}
+                  rank={rank}
+                  text={text}
+                  id={id}
+                  handleDelete={handleDelete}
+                />
+              </Reorder.Item>
             </motion.div>
           );
         })}
-      </AnimatePresence>
-    </>
+      </Reorder.Group>
+    </AnimatePresence>
   );
 };
 

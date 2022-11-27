@@ -1,3 +1,4 @@
+import { AnimatePresence, motion } from "framer-motion";
 import React, { useState } from "react";
 import Button from "../UI/Button";
 import Card from "../UI/Card";
@@ -37,29 +38,37 @@ const FeedBackForm = ({ setFeedBack }) => {
     setText(e.target.value);
   };
   return (
-    <Card>
-      <form className="max-w-2xl mx-auto" onSubmit={(e) => handleSubmit(e)}>
-        <h2 className="text-center text-2xl font-bold">
-          Rate Your Service with Us ?
-        </h2>
-        <RatingSelect setRating={setRating} rating={rating} />
-        <div className="mx-auto border-2 border-[#151F30] p-2 flex justify-between rounded-lg">
-          <input
-            className="p-2 w-full bg-transparent outline-none "
-            type="text"
-            placeholder="Write a reiview"
-            onChange={handleChange}
-            value={text}
-          />
-          <Button type={"submit"} isDisabled={btnDisabled}>
-            Send
-          </Button>
-        </div>
-        {message && (
-          <div className="text-[#151F30] text-lg pt-2">{message} </div>
-        )}
-      </form>
-    </Card>
+    <AnimatePresence>
+      <motion.div
+        initial={{ y: -300, opacity: 0 }}
+        animate={{ y: 0, opacity: 1 }}
+        exit={{ y: 0, opacity: 0 }}
+      >
+        <Card>
+          <form className="max-w-2xl mx-auto" onSubmit={(e) => handleSubmit(e)}>
+            <h2 className="text-center text-2xl font-bold">
+              Rate Your Service with Us ?
+            </h2>
+            <RatingSelect setRating={setRating} rating={rating} />
+            <div className="mx-auto border-2 border-[#151F30] p-2 flex justify-between rounded-lg">
+              <input
+                className="p-2 w-full bg-transparent outline-none "
+                type="text"
+                placeholder="Write a reiview"
+                onChange={handleChange}
+                value={text}
+              />
+              <Button type={"submit"} isDisabled={btnDisabled}>
+                Send
+              </Button>
+            </div>
+            {message && (
+              <div className="text-[#151F30] text-lg pt-2">{message} </div>
+            )}
+          </form>
+        </Card>
+      </motion.div>
+    </AnimatePresence>
   );
 };
 
