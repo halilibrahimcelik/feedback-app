@@ -3,10 +3,10 @@ import FeedBackForm from "../components/forms/FeedBackForm";
 import FeedBackStats from "../components/FeedBackStats";
 import FeedBackList from "../components/FeedBackList";
 import data from "../data/data";
-const Home = () => {
-  const [loading, setLoading] = useState(true);
+import { useAppContext } from "../context/AppContext";
 
-  const [feedBack, setFeedBack] = useState(data);
+const Home = () => {
+  const { loading, setLoading, feedBack, setFeedBack } = useAppContext();
 
   useEffect(() => {
     setTimeout(() => {
