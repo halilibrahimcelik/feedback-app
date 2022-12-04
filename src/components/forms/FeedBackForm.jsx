@@ -7,8 +7,14 @@ import Card from "../UI/Card";
 import RatingSelect from "./RatingSelect";
 
 const FeedBackForm = () => {
-  const { setFeedBack, feedBack, feedBackEdit, setEditFeedBack, handleUpdate } =
-    useAppContext();
+  const {
+    setFeedBack,
+    feedBack,
+    feedBackEdit,
+    setEditFeedBack,
+    handleUpdate,
+    handleAdd,
+  } = useAppContext();
   const [text, setText] = useState("");
   const [rating, setRating] = useState(10);
   const [btnDisabled, setBtnDisabled] = useState(true);
@@ -29,7 +35,6 @@ const FeedBackForm = () => {
 
     if (text.trim().length > 10) {
       const newForm = {
-        id: 43 * Math.random(),
         rank: rating,
         text: text,
       };
@@ -37,7 +42,7 @@ const FeedBackForm = () => {
       if (edit) {
         handleUpdate(feedBackEdit.item.id, newForm);
       } else {
-        setFeedBack((prev) => [newForm, ...prev]);
+        handleAdd(newForm);
       }
     }
     setText(" ");

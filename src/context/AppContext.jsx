@@ -9,6 +9,7 @@ const AppContext = createContext({
   setLoading: () => {},
   handleDelete: () => {},
   handleEdit: () => {},
+  handleAdd: () => {},
   setEditFeedBack: () => {},
   feedBackEdit: {},
   handleUpdate: () => {},
@@ -24,9 +25,7 @@ export const FeedBackProvider = ({ children }) => {
   const [feedBack, setFeedBack] = useState([]);
   const fetchData = async () => {
     try {
-      const response = await fetch(
-        "http://localhost:5000/feedback?_sort=id&_order=desc"
-      );
+      const response = await fetch("/feedback?_sort=id&_order=desc");
       if (response.ok) {
         setLoading(false);
       }
@@ -37,13 +36,25 @@ export const FeedBackProvider = ({ children }) => {
     }
   };
   useEffect(() => {
-    fetchData();
+    setTimeout(() => fetchData(), 1000);
   }, []);
 
   const [feedBackEdit, setFeedBackEdit] = useState({
     item: {},
     edit: false,
   });
+
+  const handleAdd = async (newForm) => {
+    const response = await fetch(`/feedback`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(newForm),
+    });
+    const data = await response.json();
+    setFeedBack((prev) => [data, ...prev]);
+  };
   const handleDelete = (id) => {
     console.log(id);
     const newData = feedBack.filter((item) => item.id !== id);
@@ -71,6 +82,7 @@ export const FeedBackProvider = ({ children }) => {
     setFeedBackEdit,
     feedBackEdit,
     handleUpdate,
+    handleAdd,
   };
   return (
     <AppContext.Provider value={contextValue}>{children}</AppContext.Provider>
