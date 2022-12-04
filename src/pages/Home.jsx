@@ -6,13 +6,8 @@ import data from "../data/data";
 import { useAppContext } from "../context/AppContext";
 
 const Home = () => {
-  const { loading, setLoading, feedBack, setFeedBack } = useAppContext();
+  const { loading, feedBack, setFeedBack } = useAppContext();
 
-  useEffect(() => {
-    setTimeout(() => {
-      setLoading(false);
-    }, 2000);
-  }, []);
   if (loading) {
     return (
       <h1

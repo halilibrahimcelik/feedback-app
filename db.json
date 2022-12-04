@@ -3,7 +3,7 @@
     {
       "id": "343432423",
       "rank": 10,
-      " text": "Learning Next.js"
+      "text": "Learning Next.js"
     },
     {
       "id": "23232313",
@@ -11,7 +11,7 @@
       "text": "Focusing on Redux  and global state management"
     },
     {
-      "rating": "9",
+      "rank": "9",
       "text": "New Feedback item",
       "id": "MHj-jYR"
     }

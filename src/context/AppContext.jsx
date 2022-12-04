@@ -1,3 +1,4 @@
+import { useEffect } from "react";
 import { createContext, useState, useContext } from "react";
 import data from "../data/data";
 
@@ -20,7 +21,25 @@ export const useAppContext = () => {
 
 export const FeedBackProvider = ({ children }) => {
   const [loading, setLoading] = useState(true);
-  const [feedBack, setFeedBack] = useState(data);
+  const [feedBack, setFeedBack] = useState([]);
+  const fetchData = async () => {
+    try {
+      const response = await fetch(
+        "http://localhost:5000/feedback?_sort=id&_order=desc"
+      );
+      if (response.ok) {
+        setLoading(false);
+      }
+      const data = await response.json();
+      setFeedBack(data);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+  useEffect(() => {
+    fetchData();
+  }, []);
+
   const [feedBackEdit, setFeedBackEdit] = useState({
     item: {},
     edit: false,
