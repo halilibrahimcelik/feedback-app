@@ -1,29 +1,49 @@
 import { AnimatePresence, motion } from "framer-motion";
 import React, { useState } from "react";
+import { useEffect } from "react";
+import { useAppContext } from "../../context/AppContext";
 import Button from "../UI/Button";
 import Card from "../UI/Card";
 import RatingSelect from "./RatingSelect";
 
-const FeedBackForm = ({ setFeedBack }) => {
+const FeedBackForm = () => {
+  const { setFeedBack, feedBack, feedBackEdit, setEditFeedBack, handleUpdate } =
+    useAppContext();
   const [text, setText] = useState("");
   const [rating, setRating] = useState(10);
   const [btnDisabled, setBtnDisabled] = useState(true);
   const [message, setMessage] = useState("");
 
+  const { item, edit, id } = feedBackEdit;
+
+  useEffect(() => {
+    if (edit === true) {
+      const { text, rank } = item;
+      setText(text);
+      setRating(rank);
+      setBtnDisabled(false);
+    }
+  }, [edit, item]);
   const handleSubmit = (e) => {
     e.preventDefault();
-    console.log(text);
+
     if (text.trim().length > 10) {
       const newForm = {
-        id: parseFloat(43 * Math.random()),
+        id: 43 * Math.random(),
         rank: rating,
         text: text,
       };
-      setFeedBack((prev) => [newForm, ...prev]);
+
+      if (edit) {
+        handleUpdate(feedBackEdit.item.id, newForm);
+      } else {
+        setFeedBack((prev) => [newForm, ...prev]);
+      }
     }
     setText(" ");
     setBtnDisabled(true);
   };
+
   const handleChange = (e) => {
     if (text === "") {
       setBtnDisabled(true);
@@ -37,6 +57,7 @@ const FeedBackForm = ({ setFeedBack }) => {
     }
     setText(e.target.value);
   };
+
   return (
     <AnimatePresence>
       <motion.div
@@ -51,7 +72,7 @@ const FeedBackForm = ({ setFeedBack }) => {
             </h2>
             <RatingSelect setRating={setRating} rating={rating} />
             <div className="mx-auto border-2 border-[#151F30] p-2 flex justify-between rounded-lg">
-              <input
+              <textarea
                 className="p-2 w-full bg-transparent outline-none "
                 type="text"
                 placeholder="Write a reiview"
