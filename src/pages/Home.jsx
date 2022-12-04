@@ -26,8 +26,8 @@ const Home = () => {
   return (
     <div className="container mx-auto">
       <FeedBackForm setFeedBack={setFeedBack} />
-      <FeedBackStats data={feedBack} />
-      <FeedBackList data={feedBack} setData={setFeedBack} />
+      <FeedBackStats />
+      <FeedBackList setFeedBack={setFeedBack} />
     </div>
   );
 };

@@ -1,16 +1,11 @@
-import React, { useState } from "react";
+import React from "react";
 import FeedBackItem from "./FeedBackItem";
 import { motion, AnimatePresence, Reorder } from "framer-motion";
+import { useAppContext } from "../context/AppContext";
 
-const FeedBackList = ({ data, setData }) => {
-  const [items, setItems] = useState([0, 1, 2, 3]);
-
-  const handleDelete = (id) => {
-    const newData = data.filter((item) => item.id !== id);
-    setData(newData);
-  };
-
-  if (!data || data.length === 0) {
+const FeedBackList = () => {
+  const { handleDelete, setFeedBack, feedBack } = useAppContext();
+  if (!feedBack || feedBack.length === 0) {
     return (
       <p className="text-white text-2xl pt-10 font-semibold">No Feedback yet</p>
     );
@@ -18,8 +13,8 @@ const FeedBackList = ({ data, setData }) => {
 
   return (
     <AnimatePresence>
-      <Reorder.Group axis="y" values={data} onReorder={setData}>
-        {data?.map((singleData) => {
+      <Reorder.Group axis="y" values={feedBack} onReorder={setFeedBack}>
+        {feedBack?.map((singleData) => {
           const { id, rank, text } = singleData;
           return (
             <motion.div

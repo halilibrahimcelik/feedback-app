@@ -1,7 +1,9 @@
 import React from "react";
 import Card from "./UI/Card";
 import { AnimatePresence, motion } from "framer-motion";
-const FeedBackStats = ({ data }) => {
+import { useAppContext } from "../context/AppContext";
+const FeedBackStats = () => {
+  const { feedBack: data } = useAppContext();
   const allRanks = data.map((item) => parseFloat(item.rank));
   const average = (
     allRanks.reduce((a, b) => a + b, 0) / allRanks.length
